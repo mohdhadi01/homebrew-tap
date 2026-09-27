@@ -21,8 +21,7 @@ cask "quicknote" do
   # developer's signed GitHub release, so the stamp is removed after install.
   postflight do
     system_command "/usr/bin/xattr",
-                   args: ["-dr", "com.apple.quarantine", "#{appdir}/QuickNote.app"],
-                   sudo: true
+                   args: ["-dr", "com.apple.quarantine", "#{appdir}/QuickNote.app"]
   end
 
   zap trash: "~/Library/Containers/com.quicknote.app"
