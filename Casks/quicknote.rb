@@ -15,5 +15,15 @@ cask "quicknote" do
 
   app "QuickNote.app"
 
+  # Homebrew stamps downloads with the Gatekeeper quarantine attribute, which
+  # would surface the "could not verify" prompt for this un-notarized app.
+  # This is the developer's own tap and the binary comes straight from the
+  # developer's signed GitHub release, so the stamp is removed after install.
+  postflight do
+    system_command "/usr/bin/xattr",
+                   args: ["-dr", "com.apple.quarantine", "#{appdir}/QuickNote.app"],
+                   sudo: true
+  end
+
   zap trash: "~/Library/Containers/com.quicknote.app"
 end
